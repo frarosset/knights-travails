@@ -32,6 +32,7 @@ export default class KnightTravails{
         if (seq.length>0){
             console.log(`=> You made it in ${seq.length-1} move${seq.length>2 ? 's' : ''}!  Here's your path:`);
             console.log(seq.map(itm => itm.toString()));
+            this.printPath(seq);
         } else
             console.log(`=> No path exists!`);
         return seq;
@@ -69,5 +70,37 @@ export default class KnightTravails{
         console.log('-----------------------------------------------------------------\n')
     }
 
+    printPath(path){
+        let data = new Array(this.#graph.NRows).fill();
+        data.forEach((row,rowIdx,data) => {
+            data[rowIdx] = new Array(this.#graph.NCols).fill('- ');
+        });
+
+        for (let i=0; i<path.length; i++){
+            const node = path[i];
+            const [r,c] = node.id;
+            data[r][c] = i+' ';
+        }
+
+        data.forEach((row,rowIdx,data) => {
+            data[rowIdx].unshift(`${rowIdx} | `);
+            data[rowIdx].push(`\n`);
+        });
+
+        let header1 = new Array(this.#graph.NRows*2).fill('_');
+        header1.unshift('   ');
+        header1.push('\n');
+        data.unshift(header1);
+
+        let header2 = new Array(this.#graph.NRows).fill();
+        header2.forEach((row,rowIdx,data) => {
+            data[rowIdx] = `${rowIdx} `;
+        });
+        header2.unshift('    ');
+        header2.push('\n');
+        data.unshift(header2);
+
+        console.log(`\n${data.flat().join('')}`);
+    }
 
 }
