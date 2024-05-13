@@ -8,7 +8,7 @@ export default class KnightTravails{
         this.#graph = new Graph(NRows,NCols);
         // todo: add edges to the graph based on the possible knight moves 
         this.#initKniteMovesGraph();
-        this.#graph.printFlat();
+        //this.#graph.printFlat();
     }
 
     #initKniteMovesGraph(){
@@ -24,6 +24,17 @@ export default class KnightTravails{
                 });
             });
         });
+    }
+
+    knightMoves([row1,col1],[row2,col2]){
+        console.log(`\nGoing from [${row1},${col1}] to [${row2},${col2}]:`);
+        let seq = this.#graph.BFSearch([row1,col1],[row2,col2]);
+        if (seq.length>0){
+            console.log(`=> You made it in ${seq.length-1} move${seq.length>2 ? 's' : ''}!  Here's your path:`);
+            console.log(seq.map(itm => itm.toString()));
+        } else
+            console.log(`=> No path exists!`);
+        return seq;
     }
 
     printMove([row,col]){
