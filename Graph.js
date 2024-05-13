@@ -31,6 +31,10 @@ export default class Graph{
         return this.#NCols;
     }
 
+    isNode([row,col]){
+        return row>=0 && row<this.#NRows && col>=0 && col<this.#NCols;
+    }
+
     printFlat(){
         this.#nodes.flat().forEach(node => {node.print()});
     }
