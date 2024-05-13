@@ -18,8 +18,10 @@ export default class Node{
         this.#neighbors.push(nodeId);
     }
 
-
     print(){
-        console.log(`[${this.#id}] -> {${this.#neighbors.map(itm => '['+itm+']')}}`);
+        console.log(`${this.toString()} -> {${this.#neighbors.map(itm => itm.toString())}}`);
+    }
+    toString(){
+        return `[${this.#id}]`;
     }
 }
