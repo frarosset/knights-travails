@@ -56,6 +56,10 @@ export default class Graph{
 
     BFSearch([row1,col1],[row2,col2]){
         let seq = [];
+        let visited = new Array(this.#NRows).fill();
+        visited.forEach((itm,rowIdx,graph) => {
+            graph[rowIdx] = new Array(this.#NCols).fill(false);
+        });
 
         let node1 = this.getNode([row1,col1]);
         if (!node1)
@@ -68,12 +72,20 @@ export default class Graph{
         // initialize the queue
         seq.push(node1);
         let queue = [seq];
+        // set the current node as visited
+        let [r,c] = node1.id;
+        visited[r][c] = true;
 
         while (queue.length){
             //console.log('\nIN QUEUE:',queue.length)
             // get a possible partial path from the queue (FIFO) and analize its last node
             let seq = queue.shift();
             let node = seq[seq.length-1];
+
+            // set the current node as visited
+            let [r,c] = node.id;
+            visited[r][c] = true;
+
             //console.log('CURRENT SEQ: ',seq.map(itm => itm.toString()));
             //node.print();
             // if you found the terminal node, return the sequence
@@ -84,6 +96,13 @@ export default class Graph{
             }
             // else, insert the new potential sequences yet to be analized to the queue
             for (let neigh of node.neighbors){
+                // check if not visited
+                let [r,c] = neigh.id;
+                if(visited[r][c]){
+                    //console.log('node [',r,c,'] already visited')
+                    continue;
+                }
+
                 let newSeq = [...seq];
                 newSeq.push(neigh);
                 //console.log('ADD TO QUEUE: ',newSeq.map(itm => itm.toString()));
