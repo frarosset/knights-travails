@@ -69,6 +69,9 @@ export default class Graph{
         if (!node2)
             return seq;
 
+        if (node1===node2)
+            return [node1];
+
         // initialize the queue
         seq.push(node1);
         let queue = [seq];
