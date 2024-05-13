@@ -39,6 +39,21 @@ export default class Graph{
         return this.isNode([row,col]) ? this.#nodes[row][col]: null;
     }
 
+    addEdge([row1,col1],[row2,col2]){
+        let node1 = this.getNode([row1,col1]);
+        if (!node1)
+            return false;
+
+        let node2 = this.getNode([row2,col2]);
+        if (!node2)
+            return false;
+
+        node1.addNeighbor(node2);
+        node2.addNeighbor(node1);
+
+        return true;
+    }
+
     printFlat(){
         this.#nodes.flat().forEach(node => {node.print()});
     }
