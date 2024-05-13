@@ -15,7 +15,8 @@ export default class Node{
     }
 
     addNeighbor(nodeId){
-        this.#neighbors.push(nodeId);
+        if (!this.#neighbors.includes(nodeId))
+            this.#neighbors.push(nodeId);
     }
 
     print(){
